@@ -280,35 +280,123 @@
             animation: slideInRight 1s ease-out;
         }
 
-        .image-placeholder {
+        .image-gallery {
             width: 100%;
-            height: 400px;
-            background: var(--gradient-ocean);
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 1.2rem;
             position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px var(--shadow-medium);
+        }
+
+        .gallery-main {
+            position: relative;
+            height: 500px;
             overflow: hidden;
         }
 
-        .image-placeholder::before {
-            content: '';
+        .gallery-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
             position: absolute;
             top: 0;
             left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300"><defs><linearGradient id="sky" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" style="stop-color:%2387CEEB;stop-opacity:1" /><stop offset="100%" style="stop-color:%23E0F6FF;stop-opacity:1" /></linearGradient></defs><rect width="400" height="200" fill="url(%23sky)"/><rect y="200" width="400" height="100" fill="%2350c878"/><circle cx="320" cy="50" r="30" fill="%23FFD700"/><path d="M0,220 Q100,200 200,220 T400,220 L400,300 L0,300 Z" fill="%23ffffff"/></svg>') center/cover;
-            opacity: 0.3;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
         }
 
-        .image-placeholder i {
-            font-size: 3rem;
-            position: relative;
-            z-index: 2;
+        .gallery-image.active {
+            opacity: 1;
+        }
+
+        .gallery-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            padding: 15px 20px;
+            cursor: pointer;
+            font-size: 1.5rem;
+            transition: background 0.3s ease;
+            z-index: 10;
+        }
+
+        .gallery-nav:hover {
+            background: rgba(0, 0, 0, 0.8);
+        }
+
+        .gallery-prev {
+            left: 20px;
+            border-radius: 0 5px 5px 0;
+        }
+
+        .gallery-next {
+            right: 20px;
+            border-radius: 5px 0 0 5px;
+        }
+
+        .gallery-dots {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+        }
+
+        .gallery-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #ccc;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .gallery-dot.active {
+            background: var(--accent-color);
+            transform: scale(1.2);
+        }
+
+        .gallery-counter {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            z-index: 10;
+        }
+
+        .gallery-thumbnails {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+            gap: 10px;
+            margin-top: 20px;
+            max-height: 100px;
+            overflow-x: auto;
+            padding: 10px 0;
+        }
+
+        .gallery-thumbnail {
+            width: 80px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            opacity: 0.6;
+        }
+
+        .gallery-thumbnail:hover,
+        .gallery-thumbnail.active {
+            opacity: 1;
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px var(--shadow-medium);
         }
 
         /* Features Section */
@@ -668,10 +756,60 @@
                 </div>
                 
                 <div class="property-visual animate-on-scroll">
-                    <div class="image-placeholder">
-                        <i class="fas fa-camera"></i>
-                        <div style="position: absolute; bottom: 20px; left: 20px; right: 20px; background: rgba(0,0,0,0.7); padding: 10px; border-radius: 10px; font-size: 0.9rem;">
-                            High-resolution images available in Google Drive folder
+                    <div class="image-gallery">
+                        <div class="gallery-main">
+                            <img src="dune-lake-studio-17.jpg" alt="Gulf-front luxury property exterior" class="gallery-image active">
+                            <img src="dune-lake-studio-24.jpg" alt="Luxury property oceanview" class="gallery-image">
+                            <img src="dune-lake-studio-1.jpg" alt="Property interior living space" class="gallery-image">
+                            <img src="dune-lake-studio-4.jpg" alt="Modern kitchen design" class="gallery-image">
+                            <img src="dune-lake-studio-13.jpg" alt="Master bedroom suite" class="gallery-image">
+                            <img src="dune-lake-studio-23.jpg" alt="Luxury bathroom spa" class="gallery-image">
+                            <img src="dune-lake-studio-35.jpg" alt="Outdoor deck and views" class="gallery-image">
+                            <img src="dune-lake-studio-40.jpg" alt="Property architectural details" class="gallery-image">
+                            <img src="dune-lake-studio-34.jpg" alt="Interior design features" class="gallery-image">
+                            <img src="dune-lake-studios-27.jpg" alt="Luxury amenities" class="gallery-image">
+                            <img src="dune-lake-studios-1.jpg" alt="Property exterior view" class="gallery-image">
+                            <img src="dune-lake-studios-4.jpg" alt="Coastal luxury details" class="gallery-image">
+                            <img src="dune-lake-studios-6.jpg" alt="Gulf-front paradise" class="gallery-image">
+                            
+                            <button class="gallery-nav gallery-prev" onclick="changeImage(-1)">❮</button>
+                            <button class="gallery-nav gallery-next" onclick="changeImage(1)">❯</button>
+                            
+                            <div class="gallery-counter">
+                                <span id="currentImage">1</span> / <span id="totalImages">13</span>
+                            </div>
+                        </div>
+                        
+                        <div class="gallery-dots">
+                            <span class="gallery-dot active" onclick="currentImage(1)"></span>
+                            <span class="gallery-dot" onclick="currentImage(2)"></span>
+                            <span class="gallery-dot" onclick="currentImage(3)"></span>
+                            <span class="gallery-dot" onclick="currentImage(4)"></span>
+                            <span class="gallery-dot" onclick="currentImage(5)"></span>
+                            <span class="gallery-dot" onclick="currentImage(6)"></span>
+                            <span class="gallery-dot" onclick="currentImage(7)"></span>
+                            <span class="gallery-dot" onclick="currentImage(8)"></span>
+                            <span class="gallery-dot" onclick="currentImage(9)"></span>
+                            <span class="gallery-dot" onclick="currentImage(10)"></span>
+                            <span class="gallery-dot" onclick="currentImage(11)"></span>
+                            <span class="gallery-dot" onclick="currentImage(12)"></span>
+                            <span class="gallery-dot" onclick="currentImage(13)"></span>
+                        </div>
+                        
+                        <div class="gallery-thumbnails">
+                            <img src="dune-lake-studio-17.jpg" alt="Thumbnail 1" class="gallery-thumbnail active" onclick="currentImage(1)">
+                            <img src="dune-lake-studio-24.jpg" alt="Thumbnail 2" class="gallery-thumbnail" onclick="currentImage(2)">
+                            <img src="dune-lake-studio-1.jpg" alt="Thumbnail 3" class="gallery-thumbnail" onclick="currentImage(3)">
+                            <img src="dune-lake-studio-4.jpg" alt="Thumbnail 4" class="gallery-thumbnail" onclick="currentImage(4)">
+                            <img src="dune-lake-studio-13.jpg" alt="Thumbnail 5" class="gallery-thumbnail" onclick="currentImage(5)">
+                            <img src="dune-lake-studio-23.jpg" alt="Thumbnail 6" class="gallery-thumbnail" onclick="currentImage(6)">
+                            <img src="dune-lake-studio-35.jpg" alt="Thumbnail 7" class="gallery-thumbnail" onclick="currentImage(7)">
+                            <img src="dune-lake-studio-40.jpg" alt="Thumbnail 8" class="gallery-thumbnail" onclick="currentImage(8)">
+                            <img src="dune-lake-studio-34.jpg" alt="Thumbnail 9" class="gallery-thumbnail" onclick="currentImage(9)">
+                            <img src="dune-lake-studios-27.jpg" alt="Thumbnail 10" class="gallery-thumbnail" onclick="currentImage(10)">
+                            <img src="dune-lake-studios-1.jpg" alt="Thumbnail 11" class="gallery-thumbnail" onclick="currentImage(11)">
+                            <img src="dune-lake-studios-4.jpg" alt="Thumbnail 12" class="gallery-thumbnail" onclick="currentImage(12)">
+                            <img src="dune-lake-studios-6.jpg" alt="Thumbnail 13" class="gallery-thumbnail" onclick="currentImage(13)">
                         </div>
                     </div>
                 </div>
@@ -944,17 +1082,98 @@
         `;
         document.head.appendChild(style);
 
-        // Add image gallery functionality (placeholder for when images are integrated)
-        function initializeImageGallery() {
-            const imagePlaceholder = document.querySelector('.image-placeholder');
-            if (imagePlaceholder) {
-                imagePlaceholder.addEventListener('click', function() {
-                    // This would open the Google Drive folder or image gallery
-                    window.open('https://drive.google.com/drive/u/2/folders/1K0S8JIzJuFjzU7Dzb7JWsk9th6KaANZ5', '_blank');
-                });
-                
-                imagePlaceholder.style.cursor = 'pointer';
-                imagePlaceholder.title = 'Click to view image gallery';
+        // Image Gallery Functionality
+        let currentImageIndex = 1;
+        const totalImages = 13;
+
+        function changeImage(direction) {
+            const images = document.querySelectorAll('.gallery-image');
+            const dots = document.querySelectorAll('.gallery-dot');
+            const thumbnails = document.querySelectorAll('.gallery-thumbnail');
+            
+            // Remove active class from current image, dot, and thumbnail
+            images[currentImageIndex - 1].classList.remove('active');
+            dots[currentImageIndex - 1].classList.remove('active');
+            thumbnails[currentImageIndex - 1].classList.remove('active');
+            
+            // Update index
+            currentImageIndex += direction;
+            
+            // Wrap around if necessary
+            if (currentImageIndex > totalImages) {
+                currentImageIndex = 1;
+            } else if (currentImageIndex < 1) {
+                currentImageIndex = totalImages;
+            }
+            
+            // Add active class to new image, dot, and thumbnail
+            images[currentImageIndex - 1].classList.add('active');
+            dots[currentImageIndex - 1].classList.add('active');
+            thumbnails[currentImageIndex - 1].classList.add('active');
+            
+            // Update counter
+            document.getElementById('currentImage').textContent = currentImageIndex;
+        }
+
+        function currentImage(index) {
+            const images = document.querySelectorAll('.gallery-image');
+            const dots = document.querySelectorAll('.gallery-dot');
+            const thumbnails = document.querySelectorAll('.gallery-thumbnail');
+            
+            // Remove active class from all
+            images.forEach(img => img.classList.remove('active'));
+            dots.forEach(dot => dot.classList.remove('active'));
+            thumbnails.forEach(thumb => thumb.classList.remove('active'));
+            
+            // Set current index
+            currentImageIndex = index;
+            
+            // Add active class to selected
+            images[index - 1].classList.add('active');
+            dots[index - 1].classList.add('active');
+            thumbnails[index - 1].classList.add('active');
+            
+            // Update counter
+            document.getElementById('currentImage').textContent = currentImageIndex;
+        }
+
+        // Auto-advance gallery every 5 seconds
+        setInterval(function() {
+            changeImage(1);
+        }, 5000);
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowLeft') {
+                changeImage(-1);
+            } else if (e.key === 'ArrowRight') {
+                changeImage(1);
+            }
+        });
+
+        // Touch/swipe support for mobile
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        document.querySelector('.gallery-main').addEventListener('touchstart', function(e) {
+            touchStartX = e.changedTouches[0].screenX;
+        });
+
+        document.querySelector('.gallery-main').addEventListener('touchend', function(e) {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        });
+
+        function handleSwipe() {
+            const swipeThreshold = 50;
+            const diff = touchStartX - touchEndX;
+            
+            if (Math.abs(diff) > swipeThreshold) {
+                if (diff > 0) {
+                    changeImage(1); // Swipe left, next image
+                } else {
+                    changeImage(-1); // Swipe right, previous image
+                }
             }
         }
 
@@ -975,8 +1194,13 @@
 
         // Initialize all interactive elements
         document.addEventListener('DOMContentLoaded', function() {
-            initializeImageGallery();
             initializeMap();
+            
+            // Initialize image gallery counter
+            if (document.getElementById('totalImages')) {
+                document.getElementById('totalImages').textContent = totalImages;
+                document.getElementById('currentImage').textContent = currentImageIndex;
+            }
         });
 
         // Add scroll progress indicator
