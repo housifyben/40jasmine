@@ -225,10 +225,6 @@
             align-items: center;
         }
 
-        .property-info {
-            animation: slideInLeft 1s ease-out;
-        }
-
         .property-info h3 {
             font-family: 'Playfair Display', serif;
             font-size: 2rem;
@@ -275,14 +271,9 @@
             margin-top: 5px;
         }
 
-        .property-visual {
-            position: relative;
-            animation: slideInRight 1s ease-out;
-        }
-
+        /* Simple Image Gallery */
         .image-gallery {
             width: 100%;
-            position: relative;
             border-radius: 20px;
             overflow: hidden;
             box-shadow: 0 15px 35px var(--shadow-medium);
@@ -291,22 +282,21 @@
         .gallery-main {
             position: relative;
             height: 500px;
-            overflow: hidden;
+            background: #f8f9fa;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .gallery-image {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            position: absolute;
-            top: 0;
-            left: 0;
-            opacity: 0;
-            transition: opacity 0.5s ease-in-out;
+            display: none;
         }
 
         .gallery-image.active {
-            opacity: 1;
+            display: block;
         }
 
         .gallery-nav {
@@ -337,13 +327,24 @@
             border-radius: 5px 0 0 5px;
         }
 
+        .gallery-counter {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            z-index: 10;
+        }
+
         .gallery-dots {
             display: flex;
             justify-content: center;
             gap: 10px;
             padding: 20px;
             background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
         }
 
         .gallery-dot {
@@ -358,72 +359,6 @@
         .gallery-dot.active {
             background: var(--accent-color);
             transform: scale(1.2);
-        }
-
-        .gallery-counter {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background: rgba(0, 0, 0, 0.7);
-            color: white;
-            padding: 8px 15px;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            z-index: 10;
-        }
-
-        .image-placeholder-fallback {
-            width: 100%;
-            height: 500px;
-            background: var(--gradient-ocean);
-            border-radius: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .image-placeholder-fallback::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300"><defs><linearGradient id="sky" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" style="stop-color:%2387CEEB;stop-opacity:1" /><stop offset="100%" style="stop-color:%23E0F6FF;stop-opacity:1" /></linearGradient></defs><rect width="400" height="200" fill="url(%23sky)"/><rect y="200" width="400" height="100" fill="%2350c878"/><circle cx="320" cy="50" r="30" fill="%23FFD700"/><path d="M0,220 Q100,200 200,220 T400,220 L400,300 L0,300 Z" fill="%23ffffff"/></svg>') center/cover;
-            opacity: 0.3;
-        }
-
-        .image-placeholder-fallback i {
-            font-size: 4rem;
-            margin-bottom: 20px;
-            position: relative;
-            z-index: 2;
-        }
-
-        .image-placeholder-fallback h3 {
-            font-size: 1.8rem;
-            margin-bottom: 10px;
-            position: relative;
-            z-index: 2;
-        }
-
-        .image-placeholder-fallback p {
-            font-size: 1.2rem;
-            margin-bottom: 15px;
-            position: relative;
-            z-index: 2;
-        }
-
-        .image-placeholder-fallback small {
-            font-size: 0.9rem;
-            opacity: 0.8;
-            position: relative;
-            z-index: 2;
         }
 
         /* Features Section */
@@ -538,6 +473,7 @@
             font-size: 1.2rem;
             position: relative;
             overflow: hidden;
+            cursor: pointer;
         }
 
         .map-placeholder::before {
@@ -638,28 +574,6 @@
             }
         }
 
-        @keyframes slideInLeft {
-            from {
-                opacity: 0;
-                transform: translateX(-50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        @keyframes slideInRight {
-            from {
-                opacity: 0;
-                transform: translateX(50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
         /* Responsive Design */
         @media (max-width: 768px) {
             .nav-links {
@@ -705,18 +619,6 @@
                 justify-content: center;
             }
         }
-
-        /* Scroll Animations */
-        .animate-on-scroll {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.8s ease;
-        }
-
-        .animate-on-scroll.animated {
-            opacity: 1;
-            transform: translateY(0);
-        }
     </style>
 </head>
 <body>
@@ -747,13 +649,13 @@
     <!-- Property Details -->
     <section id="property" class="property-section">
         <div class="container">
-            <div class="section-header animate-on-scroll">
+            <div class="section-header">
                 <h2 class="section-title">Exquisite Gulf-Front Oasis</h2>
                 <p class="section-subtitle">Nestled high above the sand within one of the most private gated communities along the entire 30A corridor</p>
             </div>
             
             <div class="property-details">
-                <div class="property-info animate-on-scroll">
+                <div class="property-info">
                     <h3>Unparalleled Elegance</h3>
                     <p class="property-description">
                         Experience coastal luxury at its finest in this exquisitely renovated Gulf-front oasis. This home boasts truly unparalleled views of the famous Emerald Coast, fully rebuilt from the studs and styled with the elegance of Alys Beach.
@@ -782,33 +684,24 @@
                     </div>
                 </div>
                 
-                <div class="property-visual animate-on-scroll">
+                <div class="property-visual">
                     <div class="image-gallery">
                         <div class="gallery-main">
-                            <!-- Remove fallback and show gallery directly -->
-                            <!-- <div class="image-placeholder-fallback">
-                                <i class="fas fa-home"></i>
-                                <h3>Luxury Property Photos</h3>
-                                <p>15 Professional Photos Available</p>
-                                <small>Images loading... Please ensure photos are uploaded to GitHub repository</small>
-                            </div> -->
-                            
-                            <!-- Test with first image visible to debug -->
-                            <img src="https://i.imgur.com/nHy4E4m.jpg" alt="Gulf-front luxury property exterior" class="gallery-image active" style="display: block;">
-                            <img src="https://i.imgur.com/gjemd5K.jpg" alt="Luxury property oceanview" class="gallery-image" style="display: none;">
-                            <img src="https://i.imgur.com/fAP74tH.jpg" alt="Property interior living space" class="gallery-image" style="display: none;">
-                            <img src="https://i.imgur.com/wel98dA.jpg" alt="Modern kitchen design" class="gallery-image" style="display: none;">
-                            <img src="https://i.imgur.com/Bb24ArB.jpg" alt="Master bedroom suite" class="gallery-image" style="display: none;">
-                            <img src="https://i.imgur.com/tJ3uSLH.jpg" alt="Luxury bathroom spa" class="gallery-image" style="display: none;">
-                            <img src="https://i.imgur.com/GxbgDfb.jpg" alt="Outdoor deck and views" class="gallery-image" style="display: none;">
-                            <img src="https://i.imgur.com/MOFyUN8.jpg" alt="Property architectural details" class="gallery-image" style="display: none;">
-                            <img src="https://i.imgur.com/JhdHxLp.jpg" alt="Interior design features" class="gallery-image" style="display: none;">
-                            <img src="https://i.imgur.com/dmrDzGp.jpg" alt="Luxury amenities" class="gallery-image" style="display: none;">
-                            <img src="https://i.imgur.com/ShujaPx.jpg" alt="Property exterior view" class="gallery-image" style="display: none;">
-                            <img src="https://i.imgur.com/qfQAXNn.jpg" alt="Coastal luxury details" class="gallery-image" style="display: none;">
-                            <img src="https://i.imgur.com/PCpta1M.jpg" alt="Gulf-front paradise" class="gallery-image" style="display: none;">
-                            <img src="https://i.imgur.com/Pw7vXW4.jpg" alt="Premium features" class="gallery-image" style="display: none;">
-                            <img src="https://i.imgur.com/tye5WeR.jpg" alt="Luxury coastal living" class="gallery-image" style="display: none;">
+                            <img src="https://i.imgur.com/nHy4E4m.jpg" alt="Gulf-front luxury property exterior" class="gallery-image active">
+                            <img src="https://i.imgur.com/gjemd5K.jpg" alt="Luxury property oceanview" class="gallery-image">
+                            <img src="https://i.imgur.com/fAP74tH.jpg" alt="Property interior living space" class="gallery-image">
+                            <img src="https://i.imgur.com/wel98dA.jpg" alt="Modern kitchen design" class="gallery-image">
+                            <img src="https://i.imgur.com/Bb24ArB.jpg" alt="Master bedroom suite" class="gallery-image">
+                            <img src="https://i.imgur.com/tJ3uSLH.jpg" alt="Luxury bathroom spa" class="gallery-image">
+                            <img src="https://i.imgur.com/GxbgDfb.jpg" alt="Outdoor deck and views" class="gallery-image">
+                            <img src="https://i.imgur.com/MOFyUN8.jpg" alt="Property architectural details" class="gallery-image">
+                            <img src="https://i.imgur.com/JhdHxLp.jpg" alt="Interior design features" class="gallery-image">
+                            <img src="https://i.imgur.com/dmrDzGp.jpg" alt="Luxury amenities" class="gallery-image">
+                            <img src="https://i.imgur.com/ShujaPx.jpg" alt="Property exterior view" class="gallery-image">
+                            <img src="https://i.imgur.com/qfQAXNn.jpg" alt="Coastal luxury details" class="gallery-image">
+                            <img src="https://i.imgur.com/PCpta1M.jpg" alt="Gulf-front paradise" class="gallery-image">
+                            <img src="https://i.imgur.com/Pw7vXW4.jpg" alt="Premium features" class="gallery-image">
+                            <img src="https://i.imgur.com/tye5WeR.jpg" alt="Luxury coastal living" class="gallery-image">
                             
                             <button class="gallery-nav gallery-prev" onclick="changeImage(-1)">❮</button>
                             <button class="gallery-nav gallery-next" onclick="changeImage(1)">❯</button>
@@ -835,24 +728,6 @@
                             <span class="gallery-dot" onclick="currentImage(14)"></span>
                             <span class="gallery-dot" onclick="currentImage(15)"></span>
                         </div>
-                        
-                        <div class="gallery-thumbnails">
-                            <img src="https://raw.githubusercontent.com/housifyben/40jasmine/main/dune-lake-studio-1.jpg" alt="Thumbnail 1" class="gallery-thumbnail active" onclick="currentImage(1)">
-                            <img src="https://raw.githubusercontent.com/housifyben/40jasmine/main/dune-lake-studio-2.jpg" alt="Thumbnail 2" class="gallery-thumbnail" onclick="currentImage(2)">
-                            <img src="https://raw.githubusercontent.com/housifyben/40jasmine/main/dune-lake-studio-13.jpg" alt="Thumbnail 3" class="gallery-thumbnail" onclick="currentImage(3)">
-                            <img src="https://raw.githubusercontent.com/housifyben/40jasmine/main/dune-lake-studio-17.jpg" alt="Thumbnail 4" class="gallery-thumbnail" onclick="currentImage(4)">
-                            <img src="https://raw.githubusercontent.com/housifyben/40jasmine/main/dune-lake-studio-18.jpg" alt="Thumbnail 5" class="gallery-thumbnail" onclick="currentImage(5)">
-                            <img src="https://raw.githubusercontent.com/housifyben/40jasmine/main/dune-lake-studio-23.jpg" alt="Thumbnail 6" class="gallery-thumbnail" onclick="currentImage(6)">
-                            <img src="https://raw.githubusercontent.com/housifyben/40jasmine/main/dune-lake-studio-24.jpg" alt="Thumbnail 7" class="gallery-thumbnail" onclick="currentImage(7)">
-                            <img src="https://raw.githubusercontent.com/housifyben/40jasmine/main/dune-lake-studio-31.jpg" alt="Thumbnail 8" class="gallery-thumbnail" onclick="currentImage(8)">
-                            <img src="https://raw.githubusercontent.com/housifyben/40jasmine/main/dune-lake-studio-34.jpg" alt="Thumbnail 9" class="gallery-thumbnail" onclick="currentImage(9)">
-                            <img src="https://raw.githubusercontent.com/housifyben/40jasmine/main/dune-lake-studio-40.jpg" alt="Thumbnail 10" class="gallery-thumbnail" onclick="currentImage(10)">
-                            <img src="https://raw.githubusercontent.com/housifyben/40jasmine/main/dune-lake-studios-1.jpg" alt="Thumbnail 11" class="gallery-thumbnail" onclick="currentImage(11)">
-                            <img src="https://raw.githubusercontent.com/housifyben/40jasmine/main/dune-lake-studios-6.jpg" alt="Thumbnail 12" class="gallery-thumbnail" onclick="currentImage(12)">
-                            <img src="https://raw.githubusercontent.com/housifyben/40jasmine/main/dune-lake-studios-8.jpg" alt="Thumbnail 13" class="gallery-thumbnail" onclick="currentImage(13)">
-                            <img src="https://raw.githubusercontent.com/housifyben/40jasmine/main/dune-lake-studios-16.jpg" alt="Thumbnail 14" class="gallery-thumbnail" onclick="currentImage(14)">
-                            <img src="https://raw.githubusercontent.com/housifyben/40jasmine/main/dune-lake-studios-27.jpg" alt="Thumbnail 15" class="gallery-thumbnail" onclick="currentImage(15)">
-                        </div>
                     </div>
                 </div>
             </div>
@@ -862,13 +737,13 @@
     <!-- Features Section -->
     <section id="features" class="features-section">
         <div class="container">
-            <div class="section-header animate-on-scroll">
+            <div class="section-header">
                 <h2 class="section-title">Exceptional Features</h2>
                 <p class="section-subtitle">Every detail crafted for luxury coastal living</p>
             </div>
             
             <div class="features-grid">
-                <div class="feature-card animate-on-scroll">
+                <div class="feature-card">
                     <div class="feature-icon">
                         <i class="fas fa-home"></i>
                     </div>
@@ -876,7 +751,7 @@
                     <p class="feature-description">Built with poured concrete, steel framing, and Cat-5 windows for ultimate durability and peace of mind.</p>
                 </div>
                 
-                <div class="feature-card animate-on-scroll">
+                <div class="feature-card">
                     <div class="feature-icon">
                         <i class="fas fa-eye"></i>
                     </div>
@@ -884,7 +759,7 @@
                     <p class="feature-description">Commanding views of the famous Emerald Coast from one of the most private locations on 30A.</p>
                 </div>
                 
-                <div class="feature-card animate-on-scroll">
+                <div class="feature-card">
                     <div class="feature-icon">
                         <i class="fas fa-palette"></i>
                     </div>
@@ -892,7 +767,7 @@
                     <p class="feature-description">Venetian plaster walls, pecky cypress ceilings, and white oak floors create timeless sophistication.</p>
                 </div>
                 
-                <div class="feature-card animate-on-scroll">
+                <div class="feature-card">
                     <div class="feature-icon">
                         <i class="fas fa-door-open"></i>
                     </div>
@@ -900,7 +775,7 @@
                     <p class="feature-description">20-foot commercial grade Euro-style sliding doors open to an Ipe viewing deck with glass railings.</p>
                 </div>
                 
-                <div class="feature-card animate-on-scroll">
+                <div class="feature-card">
                     <div class="feature-icon">
                         <i class="fas fa-mountain"></i>
                     </div>
@@ -908,7 +783,7 @@
                     <p class="feature-description">20-foot vaulted pecky cypress ceilings create an atmosphere of grandeur and space.</p>
                 </div>
                 
-                <div class="feature-card animate-on-scroll">
+                <div class="feature-card">
                     <div class="feature-icon">
                         <i class="fas fa-spa"></i>
                     </div>
@@ -922,13 +797,13 @@
     <!-- Location Section -->
     <section id="location" class="location-section">
         <div class="container">
-            <div class="section-header animate-on-scroll">
+            <div class="section-header">
                 <h2 class="section-title">Prime 30A Location</h2>
                 <p class="section-subtitle">In the heart of the Emerald Coast's most exclusive corridor</p>
             </div>
             
             <div class="location-content">
-                <div class="location-info animate-on-scroll">
+                <div class="location-info">
                     <h3>Exclusive Gated Community</h3>
                     <div class="address">
                         <i class="fas fa-map-marker-alt"></i>
@@ -942,10 +817,10 @@
                     </p>
                 </div>
                 
-                <div class="map-placeholder animate-on-scroll">
+                <div class="map-placeholder" onclick="openMap()">
                     <i class="fas fa-map"></i>
                     <div style="position: absolute; bottom: 20px; left: 20px; right: 20px; background: rgba(0,0,0,0.7); padding: 10px; border-radius: 10px; font-size: 0.9rem; text-align: center;">
-                        Interactive map integration available
+                        Click to view on Google Maps
                     </div>
                 </div>
             </div>
@@ -955,10 +830,10 @@
     <!-- CTA Section -->
     <section id="contact" class="cta-section">
         <div class="container">
-            <div class="cta-content animate-on-scroll">
+            <div class="cta-content">
                 <h2>Ready to Experience Luxury?</h2>
                 <p>Contact our listing broker to schedule a private showing of this exceptional property</p>
-                <a href="mailto:contact@gulfluxury.com" class="cta-button-secondary">Contact Listing Broker</a>
+                <a href="mailto:contact@housify.com" class="cta-button-secondary">Contact Listing Broker</a>
             </div>
         </div>
     </section>
@@ -982,161 +857,17 @@
     </footer>
 
     <script>
-        // Add parallax effect to hero section
-        window.addEventListener('scroll', function() {
-            const scrolled = window.pageYOffset;
-            const parallax = document.querySelector('.hero');
-            const speed = scrolled * 0.5;
-            
-            if (parallax) {
-                parallax.style.transform = `translateY(${speed}px)`;
-            }
-        });
-
-        // Add typing effect to hero title
-        function typeWriter(element, text, speed = 100) {
-            let i = 0;
-            element.innerHTML = '';
-            
-            function type() {
-                if (i < text.length) {
-                    element.innerHTML += text.charAt(i);
-                    i++;
-                    setTimeout(type, speed);
-                }
-            }
-            type();
-        }
-
-        // Initialize typing effect when page loads
-        window.addEventListener('load', function() {
-            const heroTitle = document.querySelector('.hero h1');
-            if (heroTitle) {
-                const originalText = heroTitle.textContent;
-                setTimeout(() => {
-                    typeWriter(heroTitle, originalText, 80);
-                }, 500);
-            }
-        });
-
-        // Add hover effects to spec items
-        document.querySelectorAll('.spec-item').forEach(item => {
-            item.addEventListener('mouseenter', function() {
-                this.style.transform = 'translateY(-5px) scale(1.05)';
-                this.style.boxShadow = '0 10px 25px rgba(52, 152, 219, 0.2)';
-            });
-            
-            item.addEventListener('mouseleave', function() {
-                this.style.transform = 'translateY(0) scale(1)';
-                this.style.boxShadow = 'none';
-            });
-        });
-
-        // Add counter animation for specs
-        function animateCounter(element, start, end, duration) {
-            let startTimestamp = null;
-            const step = (timestamp) => {
-                if (!startTimestamp) startTimestamp = timestamp;
-                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-                const current = Math.floor(progress * (end - start) + start);
-                element.textContent = current === end && end.toString().includes('.') ? end : current;
-                if (progress < 1) {
-                    window.requestAnimationFrame(step);
-                }
-            };
-            window.requestAnimationFrame(step);
-        }
-
-        // Trigger counter animations when specs come into view
-        const specsObserver = new IntersectionObserver(function(entries) {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const specNumber = entry.target.querySelector('.spec-number');
-                    const value = specNumber.textContent;
-                    
-                    if (value === '4') {
-                        animateCounter(specNumber, 0, 4, 1000);
-                    } else if (value === '3.5') {
-                        specNumber.textContent = '0';
-                        setTimeout(() => {
-                            specNumber.textContent = '3.5';
-                        }, 800);
-                    } else if (value === '3,216') {
-                        animateCounter(specNumber, 0, 3216, 1500);
-                        const updateComma = () => {
-                            const current = parseInt(specNumber.textContent);
-                            if (current >= 1000) {
-                                specNumber.textContent = current.toLocaleString();
-                            }
-                        };
-                        setTimeout(updateComma, 500);
-                        setTimeout(updateComma, 1000);
-                        setTimeout(updateComma, 1500);
-                    }
-                    
-                    specsObserver.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.5 });
-
-        document.querySelectorAll('.spec-item').forEach(item => {
-            specsObserver.observe(item);
-        });
-
-        // Add stagger effect to feature cards
-        const featureCards = document.querySelectorAll('.feature-card');
-        featureCards.forEach((card, index) => {
-            card.style.animationDelay = `${index * 0.1}s`;
-        });
-
-        // Add floating animation to CTA button
-        const ctaButtons = document.querySelectorAll('.cta-button, .cta-button-secondary');
-        ctaButtons.forEach(button => {
-            button.addEventListener('mouseenter', function() {
-                this.style.animation = 'float 0.6s ease-in-out infinite alternate';
-            });
-            
-            button.addEventListener('mouseleave', function() {
-                this.style.animation = 'none';
-            });
-        });
-
-        // Add CSS for floating animation
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes float {
-                0% { transform: translateY(-3px); }
-                100% { transform: translateY(-8px); }
-            }
-            
-            .spec-item {
-                transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            }
-            
-            .feature-card {
-                animation: fadeInUp 0.8s ease-out forwards;
-                opacity: 0;
-            }
-            
-            .animated .feature-card {
-                opacity: 1;
-            }
-        `;
-        document.head.appendChild(style);
-
-        // Image Gallery Functionality
+        // Simple Gallery Functionality
         let currentImageIndex = 1;
         const totalImages = 15;
 
         function changeImage(direction) {
             const images = document.querySelectorAll('.gallery-image');
             const dots = document.querySelectorAll('.gallery-dot');
-            const thumbnails = document.querySelectorAll('.gallery-thumbnail');
             
-            // Remove active class from current image, dot, and thumbnail
+            // Remove active class from current image and dot
             images[currentImageIndex - 1].classList.remove('active');
             dots[currentImageIndex - 1].classList.remove('active');
-            thumbnails[currentImageIndex - 1].classList.remove('active');
             
             // Update index
             currentImageIndex += direction;
@@ -1148,10 +879,9 @@
                 currentImageIndex = totalImages;
             }
             
-            // Add active class to new image, dot, and thumbnail
+            // Add active class to new image and dot
             images[currentImageIndex - 1].classList.add('active');
             dots[currentImageIndex - 1].classList.add('active');
-            thumbnails[currentImageIndex - 1].classList.add('active');
             
             // Update counter
             document.getElementById('currentImage').textContent = currentImageIndex;
@@ -1160,12 +890,10 @@
         function currentImage(index) {
             const images = document.querySelectorAll('.gallery-image');
             const dots = document.querySelectorAll('.gallery-dot');
-            const thumbnails = document.querySelectorAll('.gallery-thumbnail');
             
             // Remove active class from all
             images.forEach(img => img.classList.remove('active'));
             dots.forEach(dot => dot.classList.remove('active'));
-            thumbnails.forEach(thumb => thumb.classList.remove('active'));
             
             // Set current index
             currentImageIndex = index;
@@ -1173,7 +901,6 @@
             // Add active class to selected
             images[index - 1].classList.add('active');
             dots[index - 1].classList.add('active');
-            thumbnails[index - 1].classList.add('active');
             
             // Update counter
             document.getElementById('currentImage').textContent = currentImageIndex;
@@ -1193,120 +920,7 @@
             }
         });
 
-        // Touch/swipe support for mobile
-        let touchStartX = 0;
-        let touchEndX = 0;
-
-        document.querySelector('.gallery-main').addEventListener('touchstart', function(e) {
-            touchStartX = e.changedTouches[0].screenX;
-        });
-
-        document.querySelector('.gallery-main').addEventListener('touchend', function(e) {
-            touchEndX = e.changedTouches[0].screenX;
-            handleSwipe();
-        });
-
-        function handleSwipe() {
-            const swipeThreshold = 50;
-            const diff = touchStartX - touchEndX;
-            
-            if (Math.abs(diff) > swipeThreshold) {
-                if (diff > 0) {
-                    changeImage(1); // Swipe left, next image
-                } else {
-                    changeImage(-1); // Swipe right, previous image
-                }
-            }
-        }
-
-        // Add map functionality
-        function initializeMap() {
-            const mapPlaceholder = document.querySelector('.map-placeholder');
-            if (mapPlaceholder) {
-                mapPlaceholder.addEventListener('click', function() {
-                    // Open Google Maps with coordinates
-                    const coords = "30.3132222,-86.1179722"; // Converted from DMS to decimal
-                    window.open(`https://www.google.com/maps?q=${coords}`, '_blank');
-                });
-                
-                mapPlaceholder.style.cursor = 'pointer';
-                mapPlaceholder.title = 'Click to view on Google Maps';
-            }
-        }
-
-        // Initialize all interactive elements
-        document.addEventListener('DOMContentLoaded', function() {
-            initializeMap();
-            
-            // Initialize gallery directly - no complex loading detection
-            document.getElementById('totalImages').textContent = totalImages;
-            document.getElementById('currentImage').textContent = currentImageIndex;
-            
-            // Show first image immediately
-            const images = document.querySelectorAll('.gallery-image');
-            if (images.length > 0) {
-                images[0].style.display = 'block';
-                images[0].classList.add('active');
-            }
-            
-            console.log('Gallery initialized with', totalImages, 'images');
-        });
-
-        // Add scroll progress indicator
-        function createScrollProgress() {
-            const progressBar = document.createElement('div');
-            progressBar.style.cssText = `
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 0%;
-                height: 3px;
-                background: linear-gradient(90deg, #667eea 0%, #50c878 100%);
-                z-index: 9999;
-                transition: width 0.1s ease;
-            `;
-            document.body.appendChild(progressBar);
-
-            window.addEventListener('scroll', function() {
-                const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-                const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-                const scrolled = (winScroll / height) * 100;
-                progressBar.style.width = scrolled + '%';
-            });
-        }
-
-        createScrollProgress();
-
-        // Add contact form handling (if needed)
-        function handleContact() {
-            const ctaButtons = document.querySelectorAll('.cta-button, .cta-button-secondary');
-            ctaButtons.forEach(button => {
-                if (!button.href || button.href === '#contact') {
-                    button.addEventListener('click', function(e) {
-                        e.preventDefault();
-                        
-                        // Create contact modal or redirect
-                        const subject = encodeURIComponent('Inquiry about 40 Jasmine Circle Property');
-                        const body = encodeURIComponent(`Hi,
-
-I'm interested in learning more about the luxury Gulf-front property at 40 Jasmine Circle, Santa Rosa Beach, FL 32459, listed at $7,595,000.
-
-Please contact me to schedule a viewing or provide additional information.
-
-Thank you!`);
-                        
-                        window.location.href = `mailto:contact@example.com?subject=${subject}&body=${body}`;
-                    });
-                }
-            });
-        }
-
-        handleContact();
-
-        console.log('Gulf Luxury Property Website Loaded Successfully!');
-    </script>
-</body>
-</html> Navbar scroll effect
+        // Navbar scroll effect
         window.addEventListener('scroll', function() {
             const navbar = document.getElementById('navbar');
             if (window.scrollY > 50) {
@@ -1330,24 +944,17 @@ Thank you!`);
             });
         });
 
-        // Scroll animations
-        const observerOptions = {
-            root: null,
-            rootMargin: '0px',
-            threshold: 0.1
-        };
+        // Map functionality
+        function openMap() {
+            const coords = "30.3132222,-86.1179722"; // Converted from DMS to decimal
+            window.open(`https://www.google.com/maps?q=${coords}`, '_blank');
+        }
 
-        const observer = new IntersectionObserver(function(entries) {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('animated');
-                }
-            });
-        }, observerOptions);
-
-        // Observe all elements with animate-on-scroll class
-        document.querySelectorAll('.animate-on-scroll').forEach(el => {
-            observer.observe(el);
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Housify Property Website Loaded Successfully!');
+            console.log('Gallery initialized with', totalImages, 'images');
         });
-
-        //
+    </script>
+</body>
+</html>
