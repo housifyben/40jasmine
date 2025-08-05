@@ -372,31 +372,58 @@
             z-index: 10;
         }
 
-        .gallery-thumbnails {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
-            gap: 10px;
-            margin-top: 20px;
-            max-height: 100px;
-            overflow-x: auto;
-            padding: 10px 0;
+        .image-placeholder-fallback {
+            width: 100%;
+            height: 500px;
+            background: var(--gradient-ocean);
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
         }
 
-        .gallery-thumbnail {
-            width: 80px;
-            height: 60px;
-            object-fit: cover;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            opacity: 0.6;
+        .image-placeholder-fallback::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300"><defs><linearGradient id="sky" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" style="stop-color:%2387CEEB;stop-opacity:1" /><stop offset="100%" style="stop-color:%23E0F6FF;stop-opacity:1" /></linearGradient></defs><rect width="400" height="200" fill="url(%23sky)"/><rect y="200" width="400" height="100" fill="%2350c878"/><circle cx="320" cy="50" r="30" fill="%23FFD700"/><path d="M0,220 Q100,200 200,220 T400,220 L400,300 L0,300 Z" fill="%23ffffff"/></svg>') center/cover;
+            opacity: 0.3;
         }
 
-        .gallery-thumbnail:hover,
-        .gallery-thumbnail.active {
-            opacity: 1;
-            transform: scale(1.05);
-            box-shadow: 0 5px 15px var(--shadow-medium);
+        .image-placeholder-fallback i {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .image-placeholder-fallback h3 {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .image-placeholder-fallback p {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .image-placeholder-fallback small {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            position: relative;
+            z-index: 2;
         }
 
         /* Features Section */
@@ -758,31 +785,40 @@
                 <div class="property-visual animate-on-scroll">
                     <div class="image-gallery">
                         <div class="gallery-main">
-                            <img src="dune-lake-studio-1.jpg" alt="Gulf-front luxury property exterior" class="gallery-image active">
-                            <img src="dune-lake-studio-2.jpg" alt="Luxury property oceanview" class="gallery-image">
-                            <img src="dune-lake-studio-13.jpg" alt="Property interior living space" class="gallery-image">
-                            <img src="dune-lake-studio-17.jpg" alt="Modern kitchen design" class="gallery-image">
-                            <img src="dune-lake-studio-18.jpg" alt="Master bedroom suite" class="gallery-image">
-                            <img src="dune-lake-studio-23.jpg" alt="Luxury bathroom spa" class="gallery-image">
-                            <img src="dune-lake-studio-24.jpg" alt="Outdoor deck and views" class="gallery-image">
-                            <img src="dune-lake-studio-31.jpg" alt="Property architectural details" class="gallery-image">
-                            <img src="dune-lake-studio-34.jpg" alt="Interior design features" class="gallery-image">
-                            <img src="dune-lake-studio-40.jpg" alt="Luxury amenities" class="gallery-image">
-                            <img src="dune-lake-studios-1.jpg" alt="Property exterior view" class="gallery-image">
-                            <img src="dune-lake-studios-6.jpg" alt="Coastal luxury details" class="gallery-image">
-                            <img src="dune-lake-studios-8.jpg" alt="Gulf-front paradise" class="gallery-image">
-                            <img src="dune-lake-studios-16.jpg" alt="Premium features" class="gallery-image">
-                            <img src="dune-lake-studios-27.jpg" alt="Luxury coastal living" class="gallery-image">
+                            <!-- Fallback placeholder until images are properly uploaded -->
+                            <div class="image-placeholder-fallback">
+                                <i class="fas fa-home"></i>
+                                <h3>Luxury Property Photos</h3>
+                                <p>15 Professional Photos Available</p>
+                                <small>Images loading... Please ensure photos are uploaded to GitHub repository</small>
+                            </div>
                             
-                            <button class="gallery-nav gallery-prev" onclick="changeImage(-1)">❮</button>
-                            <button class="gallery-nav gallery-next" onclick="changeImage(1)">❯</button>
+                            <!-- Hidden image elements that will show when files are available -->
+                            <img src="dune-lake-studio-1.jpg" alt="Gulf-front luxury property exterior" class="gallery-image" style="display: none;">
+                            <img src="dune-lake-studio-2.jpg" alt="Luxury property oceanview" class="gallery-image" style="display: none;">
+                            <img src="dune-lake-studio-13.jpg" alt="Property interior living space" class="gallery-image" style="display: none;">
+                            <img src="dune-lake-studio-17.jpg" alt="Modern kitchen design" class="gallery-image" style="display: none;">
+                            <img src="dune-lake-studio-18.jpg" alt="Master bedroom suite" class="gallery-image" style="display: none;">
+                            <img src="dune-lake-studio-23.jpg" alt="Luxury bathroom spa" class="gallery-image" style="display: none;">
+                            <img src="dune-lake-studio-24.jpg" alt="Outdoor deck and views" class="gallery-image" style="display: none;">
+                            <img src="dune-lake-studio-31.jpg" alt="Property architectural details" class="gallery-image" style="display: none;">
+                            <img src="dune-lake-studio-34.jpg" alt="Interior design features" class="gallery-image" style="display: none;">
+                            <img src="dune-lake-studio-40.jpg" alt="Luxury amenities" class="gallery-image" style="display: none;">
+                            <img src="dune-lake-studios-1.jpg" alt="Property exterior view" class="gallery-image" style="display: none;">
+                            <img src="dune-lake-studios-6.jpg" alt="Coastal luxury details" class="gallery-image" style="display: none;">
+                            <img src="dune-lake-studios-8.jpg" alt="Gulf-front paradise" class="gallery-image" style="display: none;">
+                            <img src="dune-lake-studios-16.jpg" alt="Premium features" class="gallery-image" style="display: none;">
+                            <img src="dune-lake-studios-27.jpg" alt="Luxury coastal living" class="gallery-image" style="display: none;">
                             
-                            <div class="gallery-counter">
+                            <button class="gallery-nav gallery-prev" onclick="changeImage(-1)" style="display: none;">❮</button>
+                            <button class="gallery-nav gallery-next" onclick="changeImage(1)" style="display: none;">❯</button>
+                            
+                            <div class="gallery-counter" style="display: none;">
                                 <span id="currentImage">1</span> / <span id="totalImages">15</span>
                             </div>
                         </div>
                         
-                        <div class="gallery-dots">
+                        <div class="gallery-dots" style="display: none;">
                             <span class="gallery-dot active" onclick="currentImage(1)"></span>
                             <span class="gallery-dot" onclick="currentImage(2)"></span>
                             <span class="gallery-dot" onclick="currentImage(3)"></span>
@@ -800,7 +836,7 @@
                             <span class="gallery-dot" onclick="currentImage(15)"></span>
                         </div>
                         
-                        <div class="gallery-thumbnails">
+                        <div class="gallery-thumbnails" style="display: none;">
                             <img src="dune-lake-studio-1.jpg" alt="Thumbnail 1" class="gallery-thumbnail active" onclick="currentImage(1)">
                             <img src="dune-lake-studio-2.jpg" alt="Thumbnail 2" class="gallery-thumbnail" onclick="currentImage(2)">
                             <img src="dune-lake-studio-13.jpg" alt="Thumbnail 3" class="gallery-thumbnail" onclick="currentImage(3)">
@@ -1202,28 +1238,52 @@
         document.addEventListener('DOMContentLoaded', function() {
             initializeMap();
             
-            // Initialize image gallery counter
-            if (document.getElementById('totalImages')) {
-                document.getElementById('totalImages').textContent = totalImages;
-                document.getElementById('currentImage').textContent = currentImageIndex;
-            }
-            
-            // Debug: Check if images are loading
+            // Check if any images load successfully
+            let imagesLoaded = 0;
             const images = document.querySelectorAll('.gallery-image');
+            const fallback = document.querySelector('.image-placeholder-fallback');
+            const galleryControls = document.querySelectorAll('.gallery-nav, .gallery-counter, .gallery-dots, .gallery-thumbnails');
+            
             console.log('Found', images.length, 'gallery images');
             
             images.forEach((img, index) => {
                 img.addEventListener('load', function() {
                     console.log('Image loaded:', img.src);
-                });
-                img.addEventListener('error', function() {
-                    console.log('Image failed to load:', img.src);
-                    // Try with different path
-                    if (!img.src.includes('./')) {
-                        img.src = './' + img.getAttribute('src');
+                    imagesLoaded++;
+                    
+                    // If first image loads, show the gallery
+                    if (imagesLoaded === 1) {
+                        fallback.style.display = 'none';
+                        img.style.display = 'block';
+                        img.classList.add('active');
+                        
+                        // Show gallery controls
+                        galleryControls.forEach(control => {
+                            control.style.display = control.classList.contains('gallery-nav') ? 'block' : 
+                                                   control.classList.contains('gallery-counter') ? 'block' :
+                                                   control.classList.contains('gallery-dots') ? 'flex' :
+                                                   control.classList.contains('gallery-thumbnails') ? 'grid' : 'block';
+                        });
+                        
+                        // Initialize counter
+                        if (document.getElementById('totalImages')) {
+                            document.getElementById('totalImages').textContent = totalImages;
+                            document.getElementById('currentImage').textContent = currentImageIndex;
+                        }
                     }
                 });
+                
+                img.addEventListener('error', function() {
+                    console.log('Image failed to load:', img.src);
+                });
             });
+            
+            // Keep fallback showing if no images load after 3 seconds
+            setTimeout(() => {
+                if (imagesLoaded === 0) {
+                    console.log('No images loaded - keeping fallback display');
+                }
+            }, 3000);
         });
 
         // Add scroll progress indicator
