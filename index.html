@@ -121,7 +121,7 @@
         /* Hero Section */
         .hero {
             height: 100vh;
-            background: linear-gradient(135deg, #667eea 0%, #50c878 100%);
+            background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('https://i.imgur.com/tye5WeR.jpg');
             background-size: cover;
             background-position: center;
             display: flex;
@@ -168,8 +168,20 @@
             font-size: 2.5rem;
             font-weight: 700;
             color: white;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .property-specs {
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+            font-weight: 500;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .property-specs .spec-divider {
+            margin: 0 15px;
+            opacity: 0.8;
         }
 
         .cta-button {
@@ -194,7 +206,19 @@
         /* Property Details */
         .property-section {
             padding: 100px 0;
-            background: white;
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://i.imgur.com/nHy4E4m.jpg');
+            background-size: cover;
+            background-position: center;
+            color: white;
+        }
+
+        .property-section .section-title,
+        .property-section .section-subtitle {
+            color: white;
+        }
+
+        .property-section .property-description {
+            color: rgba(255, 255, 255, 0.9);
         }
 
         .section-header {
@@ -642,6 +666,9 @@
             <h1>Coastal Luxury Redefined</h1>
             <p class="hero-subtitle">Experience the finest Gulf-front oasis in Santa Rosa Beach</p>
             <div class="price-tag">$7,595,000</div>
+            <div class="property-specs">
+                4Beds<span class="spec-divider">|</span>3.5Baths<span class="spec-divider">|</span>3,216SqFt<span class="spec-divider">|</span>Fully Furnished<span class="spec-divider">|</span>350-Foot Private Beach
+            </div>
             <a href="#contact" class="cta-button">Contact Listing Broker</a>
         </div>
     </section>
@@ -663,25 +690,6 @@
                     <p class="property-description">
                         Combining hurricane-grade construction and durability with poured concrete, steel framing, and Cat-5 windows, this residence features rich applications of venetian plaster and pecky cypress, clean modern lines, high-end fixtures, custom cabinetry, and spa-like bathrooms.
                     </p>
-                    
-                    <div class="specs-grid">
-                        <div class="spec-item">
-                            <span class="spec-number">4</span>
-                            <span class="spec-label">Bedrooms</span>
-                        </div>
-                        <div class="spec-item">
-                            <span class="spec-number">3.5</span>
-                            <span class="spec-label">Bathrooms</span>
-                        </div>
-                        <div class="spec-item">
-                            <span class="spec-number">3,216</span>
-                            <span class="spec-label">Sq Ft</span>
-                        </div>
-                        <div class="spec-item">
-                            <span class="spec-number">✓</span>
-                            <span class="spec-label">Fully Furnished</span>
-                        </div>
-                    </div>
                 </div>
                 
                 <div class="property-visual">
