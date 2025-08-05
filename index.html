@@ -785,13 +785,13 @@
                 <div class="property-visual animate-on-scroll">
                     <div class="image-gallery">
                         <div class="gallery-main">
-                            <!-- Fallback placeholder until images are properly uploaded -->
-                            <div class="image-placeholder-fallback">
+                            <!-- Remove fallback and show gallery directly -->
+                            <!-- <div class="image-placeholder-fallback">
                                 <i class="fas fa-home"></i>
                                 <h3>Luxury Property Photos</h3>
                                 <p>15 Professional Photos Available</p>
                                 <small>Images loading... Please ensure photos are uploaded to GitHub repository</small>
-                            </div>
+                            </div> -->
                             
                             <!-- Test with first image visible to debug -->
                             <img src="https://i.imgur.com/nHy4E4m.jpg" alt="Gulf-front luxury property exterior" class="gallery-image active" style="display: block;">
@@ -810,15 +810,15 @@
                             <img src="https://i.imgur.com/Pw7vXW4.jpg" alt="Premium features" class="gallery-image" style="display: none;">
                             <img src="https://i.imgur.com/tye5WeR.jpg" alt="Luxury coastal living" class="gallery-image" style="display: none;">
                             
-                            <button class="gallery-nav gallery-prev" onclick="changeImage(-1)" style="display: none;">❮</button>
-                            <button class="gallery-nav gallery-next" onclick="changeImage(1)" style="display: none;">❯</button>
+                            <button class="gallery-nav gallery-prev" onclick="changeImage(-1)">❮</button>
+                            <button class="gallery-nav gallery-next" onclick="changeImage(1)">❯</button>
                             
-                            <div class="gallery-counter" style="display: none;">
+                            <div class="gallery-counter">
                                 <span id="currentImage">1</span> / <span id="totalImages">15</span>
                             </div>
                         </div>
                         
-                        <div class="gallery-dots" style="display: none;">
+                        <div class="gallery-dots">
                             <span class="gallery-dot active" onclick="currentImage(1)"></span>
                             <span class="gallery-dot" onclick="currentImage(2)"></span>
                             <span class="gallery-dot" onclick="currentImage(3)"></span>
@@ -836,7 +836,7 @@
                             <span class="gallery-dot" onclick="currentImage(15)"></span>
                         </div>
                         
-                        <div class="gallery-thumbnails" style="display: none;">
+                        <div class="gallery-thumbnails">
                             <img src="https://raw.githubusercontent.com/housifyben/40jasmine/main/dune-lake-studio-1.jpg" alt="Thumbnail 1" class="gallery-thumbnail active" onclick="currentImage(1)">
                             <img src="https://raw.githubusercontent.com/housifyben/40jasmine/main/dune-lake-studio-2.jpg" alt="Thumbnail 2" class="gallery-thumbnail" onclick="currentImage(2)">
                             <img src="https://raw.githubusercontent.com/housifyben/40jasmine/main/dune-lake-studio-13.jpg" alt="Thumbnail 3" class="gallery-thumbnail" onclick="currentImage(3)">
@@ -1238,52 +1238,18 @@
         document.addEventListener('DOMContentLoaded', function() {
             initializeMap();
             
-            // Check if any images load successfully
-            let imagesLoaded = 0;
+            // Initialize gallery directly - no complex loading detection
+            document.getElementById('totalImages').textContent = totalImages;
+            document.getElementById('currentImage').textContent = currentImageIndex;
+            
+            // Show first image immediately
             const images = document.querySelectorAll('.gallery-image');
-            const fallback = document.querySelector('.image-placeholder-fallback');
-            const galleryControls = document.querySelectorAll('.gallery-nav, .gallery-counter, .gallery-dots, .gallery-thumbnails');
+            if (images.length > 0) {
+                images[0].style.display = 'block';
+                images[0].classList.add('active');
+            }
             
-            console.log('Found', images.length, 'gallery images');
-            
-            images.forEach((img, index) => {
-                img.addEventListener('load', function() {
-                    console.log('Image loaded:', img.src);
-                    imagesLoaded++;
-                    
-                    // If first image loads, show the gallery
-                    if (imagesLoaded === 1) {
-                        fallback.style.display = 'none';
-                        img.style.display = 'block';
-                        img.classList.add('active');
-                        
-                        // Show gallery controls
-                        galleryControls.forEach(control => {
-                            control.style.display = control.classList.contains('gallery-nav') ? 'block' : 
-                                                   control.classList.contains('gallery-counter') ? 'block' :
-                                                   control.classList.contains('gallery-dots') ? 'flex' :
-                                                   control.classList.contains('gallery-thumbnails') ? 'grid' : 'block';
-                        });
-                        
-                        // Initialize counter
-                        if (document.getElementById('totalImages')) {
-                            document.getElementById('totalImages').textContent = totalImages;
-                            document.getElementById('currentImage').textContent = currentImageIndex;
-                        }
-                    }
-                });
-                
-                img.addEventListener('error', function() {
-                    console.log('Image failed to load:', img.src);
-                });
-            });
-            
-            // Keep fallback showing if no images load after 3 seconds
-            setTimeout(() => {
-                if (imagesLoaded === 0) {
-                    console.log('No images loaded - keeping fallback display');
-                }
-            }, 3000);
+            console.log('Gallery initialized with', totalImages, 'images');
         });
 
         // Add scroll progress indicator
