@@ -121,8 +121,7 @@
         /* Hero Section */
         .hero {
             height: 100vh;
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.9) 0%, rgba(118, 75, 162, 0.9) 100%),
-                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"><defs><linearGradient id="ocean" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:%2350c878;stop-opacity:1" /><stop offset="100%" style="stop-color:%233498db;stop-opacity:1" /></linearGradient></defs><rect width="1200" height="800" fill="url(%23ocean)"/><path d="M0,400 Q300,300 600,400 T1200,400 L1200,800 L0,800 Z" fill="rgba(255,255,255,0.1)"/></svg>');
+            background: linear-gradient(135deg, #667eea 0%, #50c878 100%);
             background-size: cover;
             background-position: center;
             display: flex;
@@ -140,7 +139,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(0, 0, 0, 0.3);
+            background: none;
         }
 
         .hero-content {
@@ -168,28 +167,28 @@
         .price-tag {
             font-size: 2.5rem;
             font-weight: 700;
-            color: var(--gold-accent);
+            color: white;
             margin-bottom: 30px;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
         }
 
         .cta-button {
             display: inline-block;
-            background: var(--gold-accent);
-            color: white;
+            background: white;
+            color: var(--primary-color);
             padding: 15px 40px;
             text-decoration: none;
             border-radius: 50px;
             font-weight: 600;
             font-size: 1.1rem;
             transition: all 0.3s ease;
-            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.3);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
         }
 
         .cta-button:hover {
             transform: translateY(-3px);
-            box-shadow: 0 12px 35px rgba(212, 175, 55, 0.4);
-            background: #c19b26;
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.3);
+            background: #f8f9fa;
         }
 
         /* Property Details */
@@ -291,8 +290,9 @@
         .gallery-image {
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            object-fit: contain;
             display: none;
+            background: #f8f9fa;
         }
 
         .gallery-image.active {
@@ -787,8 +787,8 @@
                     <div class="feature-icon">
                         <i class="fas fa-spa"></i>
                     </div>
-                    <h3 class="feature-title">Spa-Like Amenities</h3>
-                    <p class="feature-description">Custom cabinetry, high-end fixtures, and spa-like bathrooms offer comfort at every turn.</p>
+                    <h3 class="feature-title">Luxury Finishes</h3>
+                    <p class="feature-description">Custom cabinetry, high-end fixtures, and luxury finishes offer comfort at every turn.</p>
                 </div>
             </div>
         </div>
