@@ -1275,6 +1275,15 @@
                 
                 img.addEventListener('error', function() {
                     console.log('Image failed to load:', img.src);
+                    // Try different path variations
+                    const originalSrc = img.getAttribute('src');
+                    if (!img.dataset.retried) {
+                        img.dataset.retried = 'true';
+                        // Try with GitHub raw URL format
+                        const githubRawUrl = `https://raw.githubusercontent.com/housifyben/40jasmine/main/${originalSrc}`;
+                        console.log('Trying GitHub raw URL:', githubRawUrl);
+                        img.src = githubRawUrl;
+                    }
                 });
             });
             
