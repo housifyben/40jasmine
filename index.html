@@ -1164,6 +1164,49 @@
             });
         });
 
+        // Track video engagement
+        let videoTracked = false;
+        const videoObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !videoTracked) {
+                    videoTracked = true;
+                    if (typeof fbq !== 'undefined') {
+                        fbq('track', 'ViewContent', {
+                            content_name: 'Property Video Tour',
+                            content_type: 'video',
+                            property_value: 7495000,
+                            video_title: '40 Jasmine Circle Virtual Tour'
+                        });
+                    }
+                    
+                    // Track video watch time
+                    setTimeout(function() {
+                        if (typeof fbq !== 'undefined') {
+                            fbq('trackCustom', 'VideoEngagement', {
+                                watch_time: '10_seconds',
+                                property_value: 7495000
+                            });
+                        }
+                    }, 10000);
+                    
+                    setTimeout(function() {
+                        if (typeof fbq !== 'undefined') {
+                            fbq('trackCustom', 'VideoEngagement', {
+                                watch_time: '30_seconds',
+                                property_value: 7495000,
+                                high_intent: true
+                            });
+                        }
+                    }, 30000);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        const videoSection = document.querySelector('.video-section');
+        if (videoSection) {
+            videoObserver.observe(videoSection);
+        }
+
         // Track features section visibility
         let featuresViewed = false;
         const featuresObserver = new IntersectionObserver((entries) => {
