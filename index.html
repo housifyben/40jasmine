@@ -558,6 +558,35 @@
             box-shadow: 0 12px 35px rgba(0, 0, 0, 0.3);
         }
 
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.1rem;
+        }
+
+        .contact-item i {
+            font-size: 1.2rem;
+        }
+
+        .contact-item a {
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+        }
+
+        .contact-item a:hover {
+            text-decoration: underline;
+        }
+
         /* Footer */
         footer {
             background: var(--background-dark);
@@ -645,8 +674,31 @@
             .footer-links {
                 justify-content: center;
             }
+
+            .contact-info {
+                flex-direction: column;
+                align-items: center;
+            }
         }
     </style>
+
+    <!-- Meta Pixel Code -->
+    <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '2703602516653140');
+    fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=2703602516653140&ev=PageView&noscript=1"
+    /></noscript>
+    <!-- End Meta Pixel Code -->
 </head>
 <body>
     <!-- Navigation -->
@@ -672,7 +724,7 @@
             <div class="property-specs">
                 4Beds<span class="spec-divider">|</span>3.5Baths<span class="spec-divider">|</span>3,216SqFt<span class="spec-divider">|</span>Fully Furnished<span class="spec-divider">|</span>350-Foot Private Beach
             </div>
-            <a href="#contact" class="cta-button">Contact Listing Broker</a>
+            <a href="tel:8506244564" class="cta-button" onclick="trackContactClick('hero')">Contact Listing Broker</a>
         </div>
     </section>
 
@@ -844,7 +896,17 @@
             <div class="cta-content">
                 <h2>Ready to Experience Luxury?</h2>
                 <p>Contact our listing broker to schedule a private showing of this exceptional property</p>
-                <a href="mailto:contact@housify.com" class="cta-button-secondary">Contact Listing Broker</a>
+                <a href="tel:8506244564" class="cta-button-secondary" onclick="trackContactClick('cta')">Contact Listing Broker</a>
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <a href="tel:8506244564">850-624-4564</a>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <a href="mailto:ben@housify.tech">ben@housify.tech</a>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -868,9 +930,93 @@
     </footer>
 
     <script>
-        // Simple Gallery Functionality
+        // Meta Pixel Enhanced Tracking Functions
+        function trackContactClick(source) {
+            if (typeof fbq !== 'undefined') {
+                fbq('track', 'Lead', {
+                    value: 7495000,
+                    currency: 'USD',
+                    content_name: '40 Jasmine Circle Property',
+                    content_category: 'Luxury Real Estate',
+                    source: source
+                });
+            }
+        }
+
+        function trackEmailClick() {
+            if (typeof fbq !== 'undefined') {
+                fbq('track', 'Contact', {
+                    method: 'email',
+                    property_value: 7495000,
+                    property_address: '40 Jasmine Circle'
+                });
+            }
+        }
+
+        // Track scroll depth
+        let scrollTracked = {
+            25: false,
+            50: false,
+            75: false,
+            100: false
+        };
+
+        window.addEventListener('scroll', function() {
+            const scrollPercentage = Math.round((window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100);
+            
+            if (scrollPercentage >= 25 && !scrollTracked[25]) {
+                scrollTracked[25] = true;
+                if (typeof fbq !== 'undefined') {
+                    fbq('trackCustom', 'ScrollDepth', { depth: '25%' });
+                }
+            }
+            if (scrollPercentage >= 50 && !scrollTracked[50]) {
+                scrollTracked[50] = true;
+                if (typeof fbq !== 'undefined') {
+                    fbq('trackCustom', 'ScrollDepth', { depth: '50%' });
+                }
+            }
+            if (scrollPercentage >= 75 && !scrollTracked[75]) {
+                scrollTracked[75] = true;
+                if (typeof fbq !== 'undefined') {
+                    fbq('trackCustom', 'ScrollDepth', { depth: '75%' });
+                }
+            }
+            if (scrollPercentage >= 95 && !scrollTracked[100]) {
+                scrollTracked[100] = true;
+                if (typeof fbq !== 'undefined') {
+                    fbq('track', 'ViewContent', {
+                        content_ids: ['40-jasmine-circle'],
+                        content_type: 'property',
+                        value: 7495000,
+                        currency: 'USD',
+                        content_name: 'Full Property View'
+                    });
+                }
+            }
+        });
+
+        // Track time on site
+        let timeOnSite = 0;
+        let engagementTracked = false;
+        
+        setInterval(function() {
+            timeOnSite += 10;
+            if (timeOnSite >= 30 && !engagementTracked) {
+                engagementTracked = true;
+                if (typeof fbq !== 'undefined') {
+                    fbq('trackCustom', 'EngagedUser', {
+                        time_on_site: 30,
+                        property_value: 7495000
+                    });
+                }
+            }
+        }, 10000);
+
+        // Simple Gallery Functionality with tracking
         let currentImageIndex = 1;
         const totalImages = 15;
+        let galleryInteractionTracked = false;
 
         function changeImage(direction) {
             const images = document.querySelectorAll('.gallery-image');
@@ -896,6 +1042,27 @@
             
             // Update counter
             document.getElementById('currentImage').textContent = currentImageIndex;
+            
+            // Track gallery interaction (only once)
+            if (!galleryInteractionTracked && typeof fbq !== 'undefined') {
+                galleryInteractionTracked = true;
+                fbq('trackCustom', 'GalleryEngagement', {
+                    property_value: 7495000,
+                    content_name: '40 Jasmine Circle Gallery'
+                });
+            }
+            
+            // Track viewing of key images
+            if (currentImageIndex === 5 && typeof fbq !== 'undefined') {
+                fbq('trackCustom', 'ViewedMasterBedroom', {
+                    property_value: 7495000
+                });
+            }
+            if (currentImageIndex === 4 && typeof fbq !== 'undefined') {
+                fbq('trackCustom', 'ViewedKitchen', {
+                    property_value: 7495000
+                });
+            }
         }
 
         function currentImage(index) {
@@ -915,6 +1082,15 @@
             
             // Update counter
             document.getElementById('currentImage').textContent = currentImageIndex;
+            
+            // Track gallery interaction
+            if (!galleryInteractionTracked && typeof fbq !== 'undefined') {
+                galleryInteractionTracked = true;
+                fbq('trackCustom', 'GalleryEngagement', {
+                    property_value: 7495000,
+                    interaction_type: 'dot_navigation'
+                });
+            }
         }
 
         // Auto-advance gallery every 5 seconds
@@ -951,23 +1127,85 @@
                         behavior: 'smooth',
                         block: 'start'
                     });
+                    
+                    // Track navigation clicks
+                    if (typeof fbq !== 'undefined') {
+                        const section = this.getAttribute('href').replace('#', '');
+                        fbq('trackCustom', 'NavigationClick', {
+                            section: section,
+                            property_value: 7495000
+                        });
+                    }
                 }
             });
         });
 
-        // Map functionality
+        // Map functionality with tracking
         function openMap() {
-            const coords = "30.3132222,-86.1179722"; // Converted from DMS to decimal
+            const coords = "30.3132222,-86.1179722";
+            
+            // Track map view
+            if (typeof fbq !== 'undefined') {
+                fbq('track', 'ViewContent', {
+                    content_name: 'Property Location Map',
+                    content_category: 'Location Information',
+                    property_value: 7495000,
+                    property_address: '40 Jasmine Circle'
+                });
+            }
+            
             window.open(`https://www.google.com/maps?q=${coords}`, '_blank');
+        }
+
+        // Track email clicks
+        document.querySelectorAll('a[href^="mailto:"]').forEach(emailLink => {
+            emailLink.addEventListener('click', function() {
+                trackEmailClick();
+            });
+        });
+
+        // Track features section visibility
+        let featuresViewed = false;
+        const featuresObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !featuresViewed) {
+                    featuresViewed = true;
+                    if (typeof fbq !== 'undefined') {
+                        fbq('trackCustom', 'ViewedFeatures', {
+                            property_value: 7495000,
+                            content_name: 'Property Features Section'
+                        });
+                    }
+                }
+            });
+        }, { threshold: 0.5 });
+
+        const featuresSection = document.querySelector('.features-section');
+        if (featuresSection) {
+            featuresObserver.observe(featuresSection);
         }
 
         // Initialize on page load
         document.addEventListener('DOMContentLoaded', function() {
             console.log('Housify Property Website Loaded Successfully!');
             console.log('Gallery initialized with', totalImages, 'images');
+            console.log('Meta Pixel tracking active');
+            
+            // Track initial page view with property details
+            if (typeof fbq !== 'undefined') {
+                fbq('track', 'ViewContent', {
+                    content_ids: ['40-jasmine-circle'],
+                    content_type: 'property',
+                    value: 7495000,
+                    currency: 'USD',
+                    content_name: '40 Jasmine Circle - Gulf Front Luxury',
+                    property_type: 'Single Family Home',
+                    bedrooms: 4,
+                    bathrooms: 3.5,
+                    square_feet: 3216
+                });
+            }
         });
     </script>
 </body>
 </html>
-
-
